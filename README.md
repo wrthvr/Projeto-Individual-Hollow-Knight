@@ -1,6 +1,5 @@
 🕷️ Documentação do Projeto - Hallownest Chronicles
 
-
 📌 Contexto
 
 Este projeto foi desenvolvido como parte de uma atividade acadêmica com o objetivo de aplicar conceitos de desenvolvimento web na criação de um site temático.
