@@ -20,7 +20,7 @@ Trabalhar a organização de conteúdo
 Desenvolver uma interface visual coerente com o tema
 🧩 Descrição do Projeto
 
-O site “Hallownest Chronicles — Arthur’s Journey” funciona como um guia sobre a lore do jogo.
+O site “Hallownest Chronicles - Arthur’s Journey” funciona como um guia sobre a lore do jogo.
 
 A estrutura foi pensada para conduzir o usuário por diferentes aspectos do universo de Hallownest, como:
 
