@@ -39,7 +39,7 @@ Durante o desenvolvimento, me identifiquei com a forma como a história de Hollo
 
 Esse processo se conecta com minha própria experiência ao longo do projeto, onde foi necessário aprender, testar e evoluir gradualmente até chegar ao resultado final.
 
-Assim como no jogo, o entendimento não vem de forma imediata, mas sim através da exploração e da persistência — algo que também fez parte do meu processo de aprendizado.
+Assim como no jogo, o entendimento não vem de forma imediata, mas sim através da exploração e da persistência - algo que também fez parte do meu processo de aprendizado.
 
 
 🛠️ Tecnologias Utilizadas
