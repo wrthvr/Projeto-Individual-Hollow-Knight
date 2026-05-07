@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acessar o Selo - Hollow Knight Chronicles</title>
+    <link rel="stylesheet" href="./styles/style.css"></head>
+
+<body class="login_body">
+    <div class="fundoLoginECadastro"></div>
+    <header>
+        <div class="header">
+
+            <div class="logo">
+                <img onclick="window.location.href='index.html'" src="./images/ChatGPT Image 22 de abr. de 2026, 13_35_52.png">
+            </div>
+
+            <div class="botoes">
+                <div class="botao-inicial"> <img src="./images/home.png" class="homeicon" alt="">
+                <button class="nav_botao" onclick="window.location.href='index.html'">Página inicial</button>
+                </div>
+            </div>
+        
+
+        </div>
+
+    </header>
+    
+    <div class="login_box">
+        <div class="login_container">
+
+        <h2>Acessar o Selo</h2>
+
+        <input type="text" placeholder="Selador" id="input_login">
+        <input type="password" placeholder="Senha do Vazio" id="input_senha">
+
+        <button class="btn_entrar" onclick="Entrar()">Entrar em Hallownest</button>
+        <button class="btn_cadastro" onclick="window.location.href='paginadecadastro.html'">Criar uma Nova Conta</button>
+
+        <div id="div_mensagem"></div>
+
+    </div>
+    </div>
+
+
+    <script>
+
+        function Entrar() {
+            let login = input_login.value
+            let senha = input_senha.value
+
+            if (login == 'arthur@hallownest.com' && senha == '1234') {
+
+                window.location.href = "dash.html"
+
+            } else {
+                div_mensagem.innerHTML = `<span style="color: #d7b221;">Selador ou Senha Inválidos</span>`
+            }
+
+
+        }
+
+
+    </script>
+
+</body>
