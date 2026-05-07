@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - Hollow Knight Chronicles</title>
+    <link rel="stylesheet" href="./styles/style.css"></head>
+
+<body class="login_body">
+    <div class="fundoLoginECadastro"></div>
+    <header>
+        <div class="header">
+
+            <div class="logo">
+                <a href=""><img onclick="window.location.href='index.html'" src="./images/ChatGPT Image 22 de abr. de 2026, 13_35_52.png"></a>
+            </div>
+
+            <div class="botoes">
+                <div class="botao-inicial"><img src="./images/home.png" class="homeicon" alt="">
+                <button class="nav_botao" onclick="window.location.href='index.html'">Página inicial</button>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div class="login_box">
+
+        <div class="login_container" id="login_container"></div>
+
+    </div>
+
+    <script>
+        let container = ` <h2>Registre seu Selador</h2>
+
+            <input type="text" placeholder="Email do Selador" id="input_cadastro">
+
+            <h2>Crie uma Senha do Vazio</h2>
+
+            <input type="text" placeholder="Senha" id="input_criesenha">
+
+            <input type="password" placeholder="Confirme a Senha" id="input_repita">
+
+            <button class="btn_entrar" onclick="Criar()">Entrar em Hallownest</button>
+                <b style="color: #d7b221;"></b>
+            <div id="div_mensagem"></div>`
+
+            login_container.innerHTML = container
+
+         function irLogin() {
+
+         window.location.href = "paginaLogin.html";
+        
+         }
+        function Criar() {
+
+            let email = input_cadastro.value
+            let senha = input_criesenha.value
+            let repita = input_repita.value
+            let campos = [email, senha, repita]
+            
+            for (let i = 0; i < campos.length; i++) {
+                if (campos[i] == '') {
+                    div_mensagem.innerHTML = `<b style="color: #d7b221;">Preencha todos os campos</b>`
+                    return
+                }
+            }
+
+            if (senha == senha.toLowerCase()) {
+                div_mensagem.innerHTML = `<b style="color: #d7b221;">A senha deve conter letras maiusculas</b>`
+            } else if (senha == senha.toUpperCase()) {
+                div_mensagem.innerHTML = `<b style="color: #d7b221;">A senha deve conter letras minusculas</b>`
+            } else if (senha.length < 8) {
+                div_mensagem.innerHTML = `<b style="color: #d7b221;">A senha deve conter mais de 7 caracteres</b>`
+            } else if (repita != senha) {
+                div_mensagem.innerHTML = `<b style="color: #d7b221;">Senha não está igual</b> `
+            } else if (!email.endsWith('.com') && !email.includes('@')) {
+                div_mensagem.innerHTML = `<b style="color: #d7b221;">Insira um email válido</b>`
+            } else {
+                container = `<p style="color: #d7b221;">Seu Selador foi registrado com sucesso!</p>
+            <button class="btn_entrar" onclick="irLogin()">Ir para Login</button>`
+                login_container.innerHTML = container
+            }
+        }
+
+
+    </script>
