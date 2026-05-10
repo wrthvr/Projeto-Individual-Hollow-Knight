@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lore - Hollow Knight Chronicles</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <style>
+        .lore-hero {
+            text-align: center;
+            margin: 5vw 0;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .lore-container {
+            margin: 5vw;
+            padding: 4vw;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 30px;
+            border: 1px solid #d7b221;
+            box-shadow: 0 8px 30px rgba(215, 178, 33, 0.2);
+        }
+
+        .capitulo {
+            margin: 4vw 0;
+            padding: 3vw;
+            background-color: #0a0a0a;
+            border-left: 6px solid #d7b221;
+            border-radius: 15px;
+            transition: 0.3s ease;
+        }
+
+        .capitulo:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(215, 178, 33, 0.4);
+        }
+
+        .capitulo h3 {
+            color: #d7b221;
+            font-size: 2em;
+            margin: 0 0 15px 0;
+        }
+
+        .capitulo p {
+            color: #d0d0d0;
+            font-size: 1.1em;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 5vw 0;
+            padding: 3vw;
+            background-color: #1a1a1a;
+            border-radius: 20px;
+            border: 1px solid #d7b221;
+        }
+
+        .timeline-item {
+            margin: 2vw 0;
+            padding: 2vw;
+            background-color: #0a0a0a;
+            border-left: 4px solid #d7b221;
+            border-radius: 10px;
+        }
+
+        .timeline-item h4 {
+            color: #d7b221;
+            font-size: 1.4em;
+            margin: 0 0 10px 0;
+        }
+
+        .timeline-item p {
+            color: #b0b0b0;
+            margin: 0;
+        }
+
+        .destaque {
+            background-color: #1a1a1a;
+            padding: 2vw;
+            border-left: 6px solid #f0d76d;
+            margin: 2vw 0;
+            font-style: italic;
+            color: #d0d0d0;
+        }
+
+        @media (max-width: 768px) {
+            .capitulo {
+                padding: 2vw;
+            }
+
+            .capitulo h3 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="logo_inicial">
+                <a href="./index.html">
+                    <img src="./images/ChatGPT Image 22 de abr. de 2026, 13_35_52.png" style="cursor: pointer;">
+                </a>
+            </div>
+            <div class="botoes">
+                <a href="./lore.html"><button class="nav_botao">Lore</button></a>
+                <a href="./personagens.html"><button class="nav_botao">Personagens</button></a>
+                <a href="./mapa.html"><button class="nav_botao">Mapa</button></a>
+                <a href="./index.html#secaoBanco"><button class="nav_botao">O Criador</button></a>
+                <a><button onclick="window.location.href='http:paginaLogin.html'" class="nav_botao btn_login">Acessar o Selo</button></a>
+            </div>
+        </div>
+    </header>
+
+    <img src="./images/HK_header.jpg.webp" class="imagesfundo">
+    <div>
+        <h1 class="tituloPrincipal">
+            A HISTÓRIA<br> DO REINO.
+        </h1>
+    </div>
+
+    <div class="conteudo">
+        <div class="lore-hero">
+            <h1 style="font-size: 2.5em; color: #d7b221;">A Lore de Hallownest</h1>
+            <p style="font-size: 1.2em; color: #a0a0a0;">Descubra os segredos e a história do reino condenado</p>
+        </div>
+
+        <div class="lore-container">
+            <div class="capitulo">
+                <h3>⚔️ A Ascensão do Pale King</h3>
+                <p>
+                    Há muito tempo, Hallownest era apenas um vasto deserto repleto de criaturas selvagens. Mas então veio o Pale King, um ser de poder incomensurável. Com sua vontade e sua magia, transformou o deserto em um reino próspero. Construiu cidades, estabeleceu ordem e criou uma civilização que floresceu por séculos.
+                </p>
+            </div>
+
+            <div class="capitulo">
+                <h3>💫 A Infecção</h3>
+                <p>
+                    Mas nenhuma civilização dura para sempre. Uma infecção misteriosa começou a se espalhar por Hallownest. Aqueles infectados se tornavam selvagens, perdiam sua sanidade e suas corpos apodreciam enquanto ainda viviam. O Pale King tentou de tudo para salvar seu reino, mas a infecção era relentless.
+                </p>
+                <div class="destaque">
+                    "A Infecção não é meramente uma doença do corpo, mas uma corrupção da própria essência da existência."
+                </div>
+            </div>
+
+            <div class="capitulo">
+                <h3>🔱 A Criação do The Knight</h3>
+                <p>
+                    Desesperado, o Pale King criou um vaso vazio - um ser sem vontade própria, sem alma, sem mente. Este vaso foi desenhado para ser capaz de conter o Void, o poder corromptor por trás da Infecção. This being became known as The Knight, a warrior bound by duty to save Hallownest.
+                </p>
+            </div>
+
+            <div class="timeline">
+                <h3 style="color: #d7b221; margin-top: 0;">Timeline de Eventos</h3>
+                <div class="timeline-item">
+                    <h4>Era Antiga</h4>
+                    <p>Fundação de Hallownest pelo Pale King</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Idade Média</h4>
+                    <p>Apogeu da civilização de Hallownest</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>A Grande Infecção</h4>
+                    <p>Propagação do vírus que corrompeu o reino</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Ascensão do Knight</h4>
+                    <p>Emergência do vaso vazio para combater a infecção</p>
+                </div>
+            </div>
+
+            <div class="capitulo">
+                <h3>🌑 A Jornada do Knight</h3>
+                <p>
+                    O Knight desceu nas profundezas de Hallownest, enfrentando os horrores que a infecção criou. Através de determinação, coragem e poder crescente, o Knight progrediu através de paisagens devastadas e combateu os guardiões corrompidos do reino. Cada chefe derrotado trouxe o Knight mais perto da verdade sobre Hallownest e sobre si mesmo.
+                </p>
+            </div>
+
+            <div class="capitulo">
+                <h3>✨ O Destino Final</h3>
+                <p>
+                    No coração do Abyss, o Knight confrontou o próprio Void e o poder da infecção que assola Hallownest. A batalha final determinaria o destino do reino: redenção ou aniquilação eterna. Apenas através da force of will e da aceitação de seu propósito o Knight poderia prevalecer.
+                </p>
+                <div class="destaque">
+                    "Um cavaleiro sem nome, sem voz, sem vontade... pode ainda salvar um reino?"
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer_box">
+                <div class="footer_content">
+                    <div class="midias">
+                        <h1>Mídias Sociais</h1>
+                        <span><a href="#">LinkedIn</a></span>
+                        <span><a href="#">Twitter</a></span>
+                        <span><a href="#">Instagram</a></span>
+                        <span><a href="https://github.com/wrthvr/Projeto-Individual-Hollow-Knight">Github</a></span>
+                    </div>
+                    <div class="loreF">
+                        <h1>Explorar</h1>
+                        <span><a href="./lore.html">A História</a></span>
+                        <span><a href="./personagens.html">Personagens</a></span>
+                        <span><a href="./mapa.html">Mapa</a></span>
+                    </div>
+                    <div class="recebaNovidades">
+                        <h1>Receba Atualizações!</h1>
+                        <input type="text" id="ipt_email" placeholder="Insira seu email...">
+                    </div>
+                </div>
+                <div class="footer_content2">
+                    <p>Desenvolvido por Arthur Almeida Souza -- 2026</p>
+                    <p>Copyright © 2026 Hollow Knight Chronicles. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
