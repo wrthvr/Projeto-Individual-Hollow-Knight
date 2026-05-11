@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa - Hollow Knight Chronicles</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <style>
+        .mapa-hero {
+            text-align: center;
+            margin: 5vw 0;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .mapa-container {
+            margin: 5vw;
+            padding: 4vw;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 30px;
+            border: 1px solid #d7b221;
+            box-shadow: 0 8px 30px rgba(215, 178, 33, 0.2);
+        }
+
+        .mapa-img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(215, 178, 33, 0.3);
+            margin-bottom: 3vw;
+        }
+
+        .regiao {
+            margin: 3vw 0;
+            padding: 2vw;
+            background-color: #0a0a0a;
+            border-left: 4px solid #d7b221;
+            border-radius: 10px;
+            transition: 0.3s ease;
+        }
+
+        .regiao:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(215, 178, 33, 0.3);
+        }
+
+        .regiao h3 {
+            color: #d7b221;
+            font-size: 1.8em;
+            margin: 0 0 10px 0;
+        }
+
+        .regiao p {
+            color: #d0d0d0;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .regioes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2vw;
+            margin: 3vw 0;
+        }
+
+        @media (max-width: 768px) {
+            .regioes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="logo_inicial">
+                <a href="./index.html">
+                    <img src="./images/ChatGPT Image 22 de abr. de 2026, 13_35_52.png" style="cursor: pointer;">
+                </a>
+            </div>
+            <div class="botoes">
+                <a href="./lore.html"><button class="nav_botao">Lore</button></a>
+                <a href="./personagens.html"><button class="nav_botao">Personagens</button></a>
+                <a href="./mapa.html"><button class="nav_botao">Mapa</button></a>
+                <a href="./index.html#secaoBanco"><button class="nav_botao">O Criador</button></a>
+                <a><button onclick="window.location.href='http:paginaLogin.html'" class="nav_botao btn_login">Acessar o Selo</button></a>
+            </div>
+        </div>
+    </header>
+
+    <img src="./images/HK_header.jpg.webp" class="imagesfundo">
+    <div>
+        <h1 class="tituloPrincipal">
+            CARTOGRAFIA DE<br> HALLOWNEST.
+        </h1>
+    </div>
+
+    <div class="conteudo">
+        <div class="mapa-hero">
+            <h1 style="font-size: 2.5em; color: #d7b221;">Explore o Reino</h1>
+            <p style="font-size: 1.2em; color: #a0a0a0;">Descubra as diferentes regiões de Hallownest e suas características únicas</p>
+        </div>
+
+        <div class="mapa-container">
+            <img src="./images/Map_Artwork.webp" alt="Mapa de Hallownest" class="mapa-img">
+
+            <div class="regioes-grid">
+                <div class="regiao">
+                    <h3>🏰 Dirtmouth</h3>
+                    <p>A entrada para Hallownest. Uma pequena aldeia que marca o começo da sua jornada. Conhecida pelos seus minadores e pela atmosfera calma que precede os horrores abaixo.</p>
+                </div>
+
+                <div class="regiao">
+                    <h3>⚔️ Kingdom's Edge</h3>
+                    <p>As fronteiras do reino, repletas de perigos extremos. Uma região que testa os limites do mais corajoso explorador, com desafios únicos e inimigos formidáveis.</p>
+                </div>
+
+                <div class="regiao">
+                    <h3>🕸️ Fog Canyon</h3>
+                    <p>Flutuante entre as nuvens, coberto por névoa densa. Uma região mística onde criaturas aladas dominam e a visibilidade é constantemente desafiada.</p>
+                </div>
+
+                <div class="regiao">
+                    <h3>🦗 The Abyss</h3>
+                    <p>As profundezas mais escuras de Hallownest. Um lugar onde até mesmo a luz teme entrar, repleto com o poder do Void e segredos inimagináveis.</p>
+                </div>
+
+                <div class="regiao">
+                    <h3>🌿 Ancient Basin</h3>
+                    <p>Ruínas de uma civilização esquecida. Uma bacia antiga que revela segredos do passado de Hallownest e a verdadeira natureza do reino.</p>
+                </div>
+
+                <div class="regiao">
+                    <h3>👑 Royal Waterways</h3>
+                    <p>Os canais reais que uma vez transportavam água pura. Agora, corrompidos e perigosos, servem como lembrança do declínio do reino.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer_box">
+                <div class="footer_content">
+                    <div class="midias">
+                        <h1>Mídias Sociais</h1>
+                        <span><a href="#">LinkedIn</a></span>
+                        <span><a href="#">Twitter</a></span>
+                        <span><a href="#">Instagram</a></span>
+                        <span><a href="https://github.com/wrthvr/Projeto-Individual-Hollow-Knight">Github</a></span>
+                    </div>
+                    <div class="loreF">
+                        <h1>Explorar</h1>
+                        <span><a href="./lore.html">A História</a></span>
+                        <span><a href="./personagens.html">Personagens</a></span>
+                        <span><a href="./mapa.html">Mapa</a></span>
+                    </div>
+                    <div class="recebaNovidades">
+                        <h1>Receba Atualizações!</h1>
+                        <input type="text" id="ipt_email" placeholder="Insira seu email...">
+                    </div>
+                </div>
+                <div class="footer_content2">
+                    <p>Desenvolvido por Arthur Almeida Souza -- 2026</p>
+                    <p>Copyright © 2026 Hollow Knight Chronicles. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
