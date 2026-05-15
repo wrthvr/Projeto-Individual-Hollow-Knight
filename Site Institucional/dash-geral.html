@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Geral - Hallownest</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/dash-geral.css">
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <img onclick="window.location.href='index.html'" src="./images/ChatGPT Image 22 de abr. de 2026, 13_35_52.png" alt="Hollow Knight">
+            </div>
+            <div class="botoes dashcal">
+                <button class="nav_botao" onclick="window.location.href='calculadora.html'">Calculadora</button>
+                <div class="botao-inicial">
+                    <img src="./images/home.png" class="homeicon" alt="Home">
+                    <button class="nav_botao inicial" onclick="window.location.href='index.html'">Página Inicial</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>⚔️ Dashboard de Hallownest</h1>
+            <p>Clique em uma região para ver detalhes.</p>
+        </div>
+        <div class="reinos-grid" id="reinosGrid"></div>
+    </div>
+
+    <script>
+        // Dados padrão dos reinos
+        const reinos = [
+            {
+                id: 'dirtmouth',
+                nome: 'Dirtmouth',
+                descricao: 'A entrada para Hallownest, uma vila pacífica onde tudo começou.',
+                infeccaoBase: 20,
+                emoji: '🏘️'
+            },
+            {
+                id: 'ancient-basin',
+                nome: 'Ancient Basin',
+                descricao: 'Ruínas de uma civilização esquecida repletas de perigos antigos.',
+                infeccaoBase: 55,
+                emoji: '🏛️'
+            },
+            {
+                id: 'fog-canyon',
+                nome: 'Fog Canyon',
+                descricao: 'Flutuante entre as nuvens, coberto por uma névoa impenetrável.',
+                infeccaoBase: 65,
+                emoji: '☁️'
+            },
+            {
+                id: 'kingdom-edge',
+                nome: 'Kingdom\'s Edge',
+                descricao: 'As fronteiras do reino, onde a corrupção atinge seu ápice.',
+                infeccaoBase: 75,
+                emoji: '⚔️'
+            },
+            {
+                id: 'royal-waterways',
+                nome: 'Royal Waterways',
+                descricao: 'Os canais reais, agora corrompidos pela Infecção.',
+                infeccaoBase: 45,
+                emoji: '💧'
+            },
+            {
+                id: 'the-abyss',
+                nome: 'The Abyss',
+                descricao: 'As profundezas mais escuras, onde o Void reina supremo.',
+                infeccaoBase: 90,
+                emoji: '🌑'
+            }
+        ];
+
+        // Carrega dados do localStorage ou usa valores padrão
+        function carregarDados() {
+            const dados = localStorage.getItem('hallownest_reinos');
+            if (!dados) {
+                return reinos.map(reino => ({
+                    ...reino,
+                    infeccao: reino.infeccaoBase,
+                    chefesDefeitos: 0,
+                    loreaExplored: false
+                }));
+            }
+            return JSON.parse(dados);
+        }
+
+        // Salva dados no localStorage
+        function salvarDados(dados) {
+            localStorage.setItem('hallownest_reinos', JSON.stringify(dados));
+            atualizarDashboard();
+        }
+
+        let reinosData = carregarDados();
+
+        // Função para obter status de infecção
+        function getStatusInfeccao(infeccao) {
+            if (infeccao < 35) return { label: 'Seguro', classe: 'status-safe' };
+            if (infeccao < 65) return { label: 'Atenção', classe: 'status-warning' };
+            return { label: 'Crítico', classe: 'status-critical' };
+        }
+
+        // Renderizar cards dos reinos
+        function renderizarReinos() {
+            const grid = document.getElementById('reinosGrid');
+            grid.innerHTML = '';
+
+            reinosData.forEach(reino => {
+                const status = getStatusInfeccao(reino.infeccao);
+                const card = document.createElement('div');
+                card.className = 'reino-card';
+                card.innerHTML = `
+                    <div class="reino-header">
+                        <h3>${reino.emoji} ${reino.nome}</h3>
+                        <span class="status-badge ${status.classe}">${status.label}</span>
+                    </div>
+                    <p class="reino-description">${reino.descricao}</p>
+                    
+                    <div class="infeccao-container">
+                        <div class="infeccao-label">
+                            <span>Nível de Infecção</span>
+                            <span id="infeccao-${reino.id}">${Math.round(reino.infeccao)}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${reino.infeccao}%"></div>
+                        </div>
+                    </div>
+
+                    <div class="reino-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Chefes Derrotados</span>
+                            <span class="stat-value">${reino.chefesDefeitos}/3</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Saúde do Reino</span>
+                            <span class="stat-value">${Math.round(100 - reino.infeccao)}%</span>
+                        </div>
+                    </div>
+
+                    <button class="action-button" onclick="abrirReino('${reino.id}')">
+                        Ver Detalhes →
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Atualizar dashboard simplificado
+        function atualizarDashboard() {
+            reinosData = carregarDados();
+            renderizarReinos();
+        }
+
+        // Abrir reino detalhado
+        function abrirReino(reinoId) {
+            window.location.href = `dash.html?reino=${reinoId}`;
+        }
+
+        // Inicializar
+        atualizarDashboard();
+    </script>
+</body>
+
+</html>
