@@ -18,6 +18,29 @@ h1 {
     padding: 0;
 }
 
+/* Animações de Entrada */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Barra de navegação */
 header {
     display: flex;
@@ -29,6 +52,7 @@ header {
     position: fixed;
     top: 0;
     z-index: 10;
+    animation: fadeInDown 0.6s ease;
 }
 
 .header {
@@ -42,6 +66,11 @@ header {
     width: 80%;
     background-color: #ffffff;
     box-shadow: 0px 3px 5px rgba(215, 178, 33, 0.3);
+    transition: 0.3s ease;
+}
+
+.header:hover {
+    box-shadow: 0px 5px 15px rgba(215, 178, 33, 0.5);
 }
 
 .logo img {
@@ -63,12 +92,13 @@ header {
     margin: 0px 10px;
     cursor: pointer;
     color: #1a1a1a;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .nav_botao:hover {
     color: #d7b221;
     text-shadow: 0 0 10px rgba(215, 178, 33, 0.5);
+    transform: scale(1.1);
 }
 
 .btn_login {
@@ -80,12 +110,13 @@ header {
     align-items: center;
     color: #0a0a0a;
     font-weight: bold;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .btn_login:hover {
     background-color: #f0d76d;
     box-shadow: 0 0 15px rgba(215, 178, 33, 0.5);
+    transform: translateY(-2px);
 }
 
 .dashcal {
@@ -178,12 +209,18 @@ body {
     color: #d7b221;
     font-size: 28px;
     text-shadow: 0 0 10px rgba(215, 178, 33, 0.3);
+    animation: fadeInUp 0.8s ease 0.2s both;
 }
 
 .blocos {
     display: flex;
     justify-content: center;
     gap: 4vw;
+}
+
+.card-link {
+    text-decoration: none;
+    display: block;
 }
 
 .blocos .cards {
@@ -194,6 +231,14 @@ body {
     border: 2px solid #d7b221;
     box-shadow: 0px 0px 15px rgba(215, 178, 33, 0.3);
     overflow: hidden;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.blocos .cards:hover {
+    transform: translateY(-12px);
+    box-shadow: 0px 12px 30px rgba(215, 178, 33, 0.6);
+    border-color: #f0d76d;
 }
 
 .descricaoETitulo {
@@ -422,6 +467,11 @@ a:hover {
     padding: 0 20px;
 }
 
+.cardsgroup-single {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+}
+
 .card_membro {
     width: 220px;
     background-color: #1a1a1a;
@@ -429,12 +479,17 @@ a:hover {
     border-radius: 15px;
     padding: 15px;
     box-shadow: 0 4px 10px rgba(215, 178, 33, 0.1);
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .card_membro:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(215, 178, 33, 0.3);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(215, 178, 33, 0.3);
+    border-color: #f0d76d;
+}
+
+.card_membro_principal {
+    width: 280px;
 }
 
 .card_membro img {
