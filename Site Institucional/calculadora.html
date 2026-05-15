@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Almas - Hollow Knight Chronicles</title>
+    <link rel="stylesheet" href="styles/style.css"></head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <img onclick="window.location.href='index.html'" src="./images/ChatGPT Image 22 de abr. de 2026, 13_35_52.png">
+            </div>
+
+             <div class="botoes dashcal">
+                <button class="nav_botao" onclick="window.location.href='dash.html'">Dashboard</button>
+                <div class="botao-inicial">
+                    <img src="./images/home.png" class="homeicon" alt="">
+                    <button class="nav_botao inicial" onclick="window.location.href='index.html'">Página
+                        inicial</button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="topo">
+            <h1>Calculadora de Almas</h1>
+            <p>Analise sua eficiência na coleta de Almas em Hallownest</p>
+        </div>
+
+        <div class="painel">
+            <div class="card-form">
+                <h2>Dados da Jornada</h2>
+
+                <div class="campo">
+                    <label>Almas coletadas por inimigo</label>
+                    <input type="text" id="almasInimigo" placeholder="Ex: 10">
+                </div>
+
+                <div class="campo">
+                    <label>Inimigos encontrados</label>
+                    <input type="text" id="inimigosEncontrados" placeholder="Ex: 30">
+                </div>
+
+                <div class="campo">
+                    <label>Taxa de dano recebido (em %)</label>
+                    <input type="text" id="taxaDano" placeholder="Ex: 25">
+                </div>
+
+                <div class="campo">
+                    <label>Valor de cura por Alma (HP)</label>
+                    <input type="text" id="valorCura" placeholder="Ex: 1">
+                </div>
+
+                <div class="campo">
+                    <label>Tempo de jornada (minutos)</label>
+                    <input type="text" id="tempoJornada" placeholder="Ex: 45">
+                </div>
+
+                <div class="campo">
+                    <label>Almas desperdiçadas</label>
+                    <input type="text" id="almasPerdidasCombate" placeholder="Ex: 5">
+                </div>
+
+                <button onclick="analisar()">Analisar Jornada</button>
+            </div>
+
+            <div class="dashboard">
+                <div class="cards">
+                    <div class="card">
+                        <h3>Total de Almas</h3>
+                        <p id="cardTotalAlmas">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Dano Sofrido</h3>
+                        <p id="cardDano">0 HP</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Almas para Cura</h3>
+                        <p id="cardAlmasParaCura">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Almas Aproveitáveis</h3>
+                        <p id="cardAlmasAproveitaveis">0</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Taxa de Eficiência</h3>
+                        <p id="cardEficiencia">0%</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Almas por minuto</h3>
+                        <p id="cardVelocidade">0/min</p>
+                    </div>
+                
+                </div>
+
+                <div class="detalhes">
+                    <h2>Relatório da Jornada</h2>
+                    <br><br>
+                    <div class="descer">
+                    <div id="resultado"></div>
+                    <div id="resultado1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function analisar() {
+        let almasInimigo = Number(document.getElementById('almasInimigo').value);
+        let inimigos = Number(document.getElementById('inimigosEncontrados').value);
+        let taxaDano = Number(document.getElementById('taxaDano').value);
+        let valorCura = Number(document.getElementById('valorCura').value);
+        let tempo = Number(document.getElementById('tempoJornada').value);
+        let almasPerdidasCombate = Number(document.getElementById('almasPerdidasCombate').value);
+
+        let totalAlmas = almasInimigo * inimigos;
+        let danoSofrido = Math.floor(totalAlmas * (taxaDano / 100));
+        let almasParaCura = Math.ceil(danoSofrido / valorCura);
+        let almasAproveitaveis = totalAlmas - almasPerdidasCombate - almasParaCura;
+        
+        let eficiencia = 0;
+        let velocidade = 0;
+
+        if (totalAlmas > 0) {
+            eficiencia = (almasAproveitaveis / totalAlmas) * 100;
+        }
+
+        if (tempo > 0) {
+            velocidade = (totalAlmas / tempo).toFixed(2);
+        }
+
+        let situacao = "";
+        let classe = "";
+
+        if (eficiencia >= 80) {
+            situacao = "Jornada Excelente";
+            classe = "bom";
+        } else if (eficiencia >= 60) {
+            situacao = "Jornada Boa";
+            classe = "bom";
+        } else if (eficiencia >= 40) {
+            situacao = "Jornada Regular";
+            classe = "medio";
+        } else {
+            situacao = "Jornada Desafiadora";
+            classe = "ruim";
+        }
+
+        let alertaAlmas = "";
+        let classeAlmas = "";
+
+        if (almasAproveitaveis > 0) {
+            alertaAlmas = "Você tem Almas disponíveis para usar!";
+            classeAlmas = "bom";
+        } else if (almasAproveitaveis == 0) {
+            alertaAlmas = "Todas as Almas foram usadas para cura.";
+            classeAlmas = "medio";
+        } else {
+            alertaAlmas = "Você não conseguiu coletar Almas suficientes.";
+            classeAlmas = "ruim";
+        }
+
+        document.getElementById('cardTotalAlmas').innerHTML = `<span style="color: #d7b221;">${totalAlmas}</span>`;
+        document.getElementById('cardDano').innerHTML = `${danoSofrido} HP`;
+        document.getElementById('cardAlmasParaCura').innerHTML = `${almasParaCura}`;
+        document.getElementById('cardAlmasAproveitaveis').innerHTML = `<span style="color: #d7b221;">${almasAproveitaveis}</span>`;
+        document.getElementById('cardEficiencia').innerHTML = `${eficiencia.toFixed(2)}%`;
+        document.getElementById('cardVelocidade').innerHTML = `${velocidade}/min`;
+        document.getElementById('resultado').innerHTML = `Situação: <span class="${classe}">${situacao}</span><br>`;
+        document.getElementById('resultado1').innerHTML =`Almas: <span class="${classeAlmas}">${alertaAlmas}</span>`;
+    }
+</script>
