@@ -1,0 +1,209 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    padding-top: 80px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 60%, #000000 100%);
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header-section {
+    margin-bottom: 40px;
+    background: linear-gradient(270deg, #3a3a3a, #4a4a4a, #2a2a2a);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #d7b221;
+    box-shadow: 0 10px 30px rgba(215, 178, 33, 0.2);
+    animation: slideIn 0.6s ease;
+}
+
+.header-section h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #d7b221;
+    margin-bottom: 10px;
+}
+
+.header-section p {
+    color: #a0a0a0;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.reinos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.reino-card {
+    cursor: pointer;
+    padding: 24px;
+    border-radius: 16px;
+    background-color: #1a1a1a;
+    border: 2px solid #d7b221;
+    box-shadow: 0 10px 30px rgba(215, 178, 33, 0.1);
+    transition: all 0.3s ease;
+    animation: slideIn 0.6s ease;
+}
+
+.reino-card:hover {
+    transform: translateY(-6px);
+    border-color: #f0d76d;
+    box-shadow: 0 15px 40px rgba(215, 178, 33, 0.3);
+}
+
+.reino-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.reino-card h3 {
+    font-size: 18px;
+    color: #d7b221;
+    margin: 0;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-safe {
+    background-color: #22c55e;
+    color: #1a1a1a;
+}
+
+.status-warning {
+    background-color: #f59e0b;
+    color: #1a1a1a;
+}
+
+.status-critical {
+    background-color: #ef4444;
+    color: #fff;
+}
+
+.infeccao-container {
+    margin-bottom: 16px;
+}
+
+.infeccao-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.infeccao-label span:first-child {
+    color: #d7b221;
+    font-weight: 600;
+}
+
+.infeccao-label span:last-child {
+    color: #a0a0a0;
+    font-weight: 700;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #0a0a0a;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #f59e0b, #ef4444);
+    border-radius: 8px;
+    transition: width 0.4s ease;
+}
+
+.reino-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #333;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    color: #d7b221;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.action-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 16px;
+    border: none;
+    border-radius: 10px;
+    background-color: #d7b221;
+    color: #0a0a0a;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.action-button:hover {
+    background-color: #f0d76d;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .reinos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header-section h1 {
+        font-size: 24px;
+    }
+
+    .container {
+        padding-top: 40px;
+    }
+}
