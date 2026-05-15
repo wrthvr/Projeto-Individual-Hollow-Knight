@@ -1,0 +1,1347 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Reino - Hallownest</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./styles/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            padding-top: 80px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 60%, #000000 100%);
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            margin-bottom: 20px;
+            border: 1px solid #d7b221;
+            border-radius: 12px;
+            background-color: transparent;
+            color: #d7b221;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            background-color: #d7b221;
+            color: #0a0a0a;
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 2px solid #d7b221;
+            box-shadow: 0 10px 40px rgba(215, 178, 33, 0.2);
+            animation: slideIn 0.6s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header-content h1 {
+            font-size: 40px;
+            color: #d7b221;
+            margin: 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-safe {
+            background-color: #22c55e;
+            color: #1a1a1a;
+        }
+
+        .status-warning {
+            background-color: #f59e0b;
+            color: #1a1a1a;
+        }
+
+        .status-critical {
+            background-color: #ef4444;
+            color: #fff;
+        }
+
+        .infeccao-main {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #0a0a0a;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+
+        .infeccao-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .infeccao-label span:first-child {
+            color: #d7b221;
+            font-weight: 600;
+        }
+
+        .infeccao-label span:last-child {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #d7b221;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 16px;
+            background-color: #0a0a0a;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #f59e0b, #ef4444);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        /* SEÇÕES */
+        .section {
+            margin-bottom: 30px;
+            padding: 28px;
+            border-radius: 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #d7b221;
+            box-shadow: 0 10px 30px rgba(215, 178, 33, 0.1);
+            animation: slideIn 0.7s ease;
+        }
+
+        .section h2 {
+            font-size: 24px;
+            color: #d7b221;
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            color: #d7b221;
+            margin-top: 16px;
+            margin-bottom: 12px;
+        }
+
+        .section p {
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+
+        /* PROGRESSO */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .progress-item {
+            padding: 16px;
+            background-color: #0a0a0a;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+
+        .progress-item h4 {
+            color: #d7b221;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .progress-item p {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #d7b221;
+            margin: 0;
+        }
+
+        /* FORMULÁRIO */
+        .form-group {
+            margin-bottom: 16px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .form-group label {
+            color: #d7b221;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px;
+            border: 1px solid #d7b221;
+            border-radius: 8px;
+            background-color: #0a0a0a;
+            color: #d7b221;
+            font-size: 1rem;
+        }
+
+        .form-group button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background-color: #d7b221;
+            color: #0a0a0a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #f0d76d;
+            transform: translateY(-2px);
+        }
+
+        .activities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            padding: 16px;
+            background-color: #0a0a0a;
+            border-left: 4px solid #d7b221;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-item h4 {
+            color: #d7b221;
+            margin: 0 0 4px 0;
+        }
+
+        .activity-item p {
+            color: #a0a0a0;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .activity-item button {
+            padding: 6px 12px;
+            background-color: #ef4444;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.3s ease;
+        }
+
+        .activity-item button:hover {
+            background-color: #dc2626;
+        }
+
+        .no-activities {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            .header-content h1 {
+                font-size: 28px;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding-top: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <img onclick="window.location.href='index.html'" src="./images/ChatGPT Image 22 de abr. de 2026, 13_35_52.png" alt="Hollow Knight">
+            </div>
+            <div class="botoes dashcal">
+                <button class="nav_botao" onclick="window.location.href='calculadora.html'">Calculadora</button>
+                <div class="botao-inicial">
+                    <img src="./images/home.png" class="homeicon" alt="Home">
+                    <button class="nav_botao inicial" onclick="window.location.href='dash-geral.html'">Dashboard Geral</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <button class="back-button" onclick="window.history.back()">← Voltar</button>
+
+        <div class="header-section">
+            <div class="header-content">
+                <h1 id="reino-nome">--</h1>
+                <span class="status-badge" id="status-badge">--</span>
+            </div>
+
+            <div class="infeccao-main">
+                <div class="infeccao-label">
+                    <span>Nível de Infecção</span>
+                    <span id="infeccao-percent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <p id="reino-descricao" style="color: #a0a0a0; margin: 0;"></p>
+        </div>
+
+        <!-- PROGRESSO -->
+        <div class="section">
+            <h2>📊 Progresso do Reino</h2>
+            <div class="progress-grid">
+                <div class="progress-item">
+                    <h4>Chefes Derrotados</h4>
+                    <p id="chefes-count">0/3</p>
+                </div>
+                <div class="progress-item">
+                    <h4>Saúde do Reino</h4>
+                    <p id="reino-saude">100%</p>
+                </div>
+                <div class="progress-item">
+                    <h4>Lore Explorada</h4>
+                    <p id="lore-status">Não</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGISTRAR PROGRESSO -->
+        <div class="section">
+            <h2>⚔️ Registrar Progresso</h2>
+            
+            <h3>Chefe Derrotado</h3>
+            <div class="form-group">
+                <input type="text" id="chefe-nome" placeholder="Nome do chefe">
+                <button onclick="adicionarChefe()">Registrar Chefe</button>
+            </div>
+
+            <h3 style="margin-top: 20px;">Exploração de Lore</h3>
+            <div class="form-group">
+                <select id="lore-tipo">
+                    <option value="">Selecione um tipo de exploração...</option>
+                    <option value="storia">História Principal</option>
+                    <option value="personagem">Personagem Encontrado</option>
+                    <option value="local">Local Descoberto</option>
+                    <option value="artefato">Artefato Antigo</option>
+                </select>
+                <button onclick="explorarLore()">Registrar Exploração</button>
+            </div>
+
+            <div class="form-group">
+                <textarea id="lore-notas" placeholder="Notas sobre a exploração (opcional)" style="padding: 12px; border: 1px solid #d7b221; border-radius: 8px; background-color: #0a0a0a; color: #d7b221; grid-column: 1 / -1; min-height: 80px; resize: vertical;"></textarea>
+            </div>
+
+            <h3 style="margin-top: 20px;">Diminuir Infecção Manualmente</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 12px;">A infecção diminui automaticamente com cada chefe derrotado e exploração de lore.</p>
+            <div class="form-group">
+                <input type="number" id="reducao-valor" placeholder="Quantidade (0-100)" min="0" max="100" value="5">
+                <button onclick="diminuirInfeccao()">Reduzir Infecção</button>
+            </div>
+        </div>
+
+        <!-- ATIVIDADES -->
+        <div class="section">
+            <h2>📋 Atividades Recentes</h2>
+            <div class="activities-list" id="atividades-list">
+                <div class="no-activities">Nenhuma atividade registrada ainda.</div>
+            </div>
+        </div>
+
+        <!-- GRÁFICO -->
+        <div class="section">
+            <h2>📈 Histórico de Infecção</h2>
+            <div class="chart-container">
+                <canvas id="infectacaoHistorico"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados dos reinos
+        const reinos = [
+            {
+                id: 'dirtmouth',
+                nome: 'Dirtmouth',
+                descricao: 'A entrada para Hallownest, uma vila pacífica onde tudo começou.',
+                infeccaoBase: 20,
+                emoji: '🏘️'
+            },
+            {
+                id: 'ancient-basin',
+                nome: 'Ancient Basin',
+                descricao: 'Ruínas de uma civilização esquecida repletas de perigos antigos.',
+                infeccaoBase: 55,
+                emoji: '🏛️'
+            },
+            {
+                id: 'fog-canyon',
+                nome: 'Fog Canyon',
+                descricao: 'Flutuante entre as nuvens, coberto por uma névoa impenetrável.',
+                infeccaoBase: 65,
+                emoji: '☁️'
+            },
+            {
+                id: 'kingdom-edge',
+                nome: 'Kingdom\'s Edge',
+                descricao: 'As fronteiras do reino, onde a corrupção atinge seu ápice.',
+                infeccaoBase: 75,
+                emoji: '⚔️'
+            },
+            {
+                id: 'royal-waterways',
+                nome: 'Royal Waterways',
+                descricao: 'Os canais reais, agora corrompidos pela Infecção.',
+                infeccaoBase: 45,
+                emoji: '💧'
+            },
+            {
+                id: 'the-abyss',
+                nome: 'The Abyss',
+                descricao: 'As profundezas mais escuras, onde o Void reina supremo.',
+                infeccaoBase: 90,
+                emoji: '🌑'
+            }
+        ];
+
+        let reinoAtual = null;
+        let reinoData = null;
+
+        // Obter ID do reino da URL
+        function obterReinoId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('reino');
+        }
+
+        // Carregar dados do reino
+        function carregarReino() {
+            const reinoId = obterReinoId();
+            if (!reinoId) {
+                window.location.href = 'dash-geral.html';
+                return;
+            }
+
+            const todosReinos = JSON.parse(localStorage.getItem('hallownest_reinos')) || 
+                reinos.map(reino => ({
+                    ...reino,
+                    infeccao: reino.infeccaoBase,
+                    chefesDefeitos: 0,
+                    loreaExplored: false,
+                    atividades: [],
+                    historico: [reino.infeccaoBase]
+                }));
+
+            reinoAtual = todosReinos.find(r => r.id === reinoId);
+            if (!reinoAtual) {
+                window.location.href = 'dash-geral.html';
+                return;
+            }
+
+            reinoData = reinoAtual;
+            renderizar();
+        }
+
+        // Render da página
+        function renderizar() {
+            document.getElementById('reino-nome').textContent = `${reinoData.emoji} ${reinoData.nome}`;
+            document.getElementById('reino-descricao').textContent = reinoData.descricao;
+            
+            const status = getStatusInfeccao(reinoData.infeccao);
+            const badge = document.getElementById('status-badge');
+            badge.textContent = status.label;
+            badge.className = `status-badge ${status.classe}`;
+
+            const infeccaoPercent = Math.round(reinoData.infeccao);
+            document.getElementById('infeccao-percent').textContent = `${infeccaoPercent}%`;
+            document.getElementById('progress-fill').style.width = `${infeccaoPercent}%`;
+
+            document.getElementById('chefes-count').textContent = `${reinoData.chefesDefeitos}/3`;
+            document.getElementById('reino-saude').textContent = `${Math.round(100 - reinoData.infeccao)}%`;
+            document.getElementById('lore-status').textContent = reinoData.loreaExplored ? 'Sim' : 'Não';
+
+            renderAtividades();
+            renderGrafico();
+        }
+
+        // Status de infecção
+        function getStatusInfeccao(infeccao) {
+            if (infeccao < 35) return { label: 'Seguro', classe: 'status-safe' };
+            if (infeccao < 65) return { label: 'Atenção', classe: 'status-warning' };
+            return { label: 'Crítico', classe: 'status-critical' };
+        }
+
+        // Adicionar chefe
+        function adicionarChefe() {
+            const nomeChefe = document.getElementById('chefe-nome').value.trim();
+            if (!nomeChefe) {
+                alert('Digite o nome do chefe');
+                return;
+            }
+
+            if (reinoData.chefesDefeitos >= 3) {
+                alert('Todos os chefes já foram derrotados!');
+                return;
+            }
+
+            reinoData.chefesDefeitos++;
+            reinoData.infeccao = Math.max(0, reinoData.infeccao - 20);
+            
+            reinoData.atividades.unshift({
+                tipo: 'chefe',
+                descricao: `Chefe derrotado: ${nomeChefe}`,
+                data: new Date().toLocaleDateString('pt-BR')
+            });
+
+            if (!reinoData.historico) reinoData.historico = [];
+            reinoData.historico.push(reinoData.infeccao);
+
+            document.getElementById('chefe-nome').value = '';
+            salvarEAtualizar();
+        }
+
+        // Explorar lore
+        function explorarLore() {
+            const tipo = document.getElementById('lore-tipo').value;
+            const notas = document.getElementById('lore-notas').value.trim();
+
+            if (!tipo) {
+                alert('Selecione um tipo de exploração');
+                return;
+            }
+
+            reinoData.infeccao = Math.max(0, reinoData.infeccao - 10);
+            
+            const tipos = {
+                'historia': 'História Principal explorada',
+                'personagem': 'Personagem encontrado',
+                'local': 'Local descoberto',
+                'artefato': 'Artefato antigo encontrado'
+            };
+
+            reinoData.atividades.unshift({
+                tipo: 'lore',
+                descricao: tipos[tipo] + (notas ? `: ${notas}` : ''),
+                data: new Date().toLocaleDateString('pt-BR')
+            });
+
+            if (!reinoData.historico) reinoData.historico = [];
+            reinoData.historico.push(reinoData.infeccao);
+
+            if (!reinoData.loreaExplored && tipo === 'historia') {
+                reinoData.loreaExplored = true;
+            }
+
+            document.getElementById('lore-tipo').value = '';
+            document.getElementById('lore-notas').value = '';
+            salvarEAtualizar();
+        }
+
+        // Diminuir infecção
+        function diminuirInfeccao() {
+            const valor = parseInt(document.getElementById('reducao-valor').value) || 0;
+            if (valor <= 0) {
+                alert('Digite um valor maior que 0');
+                return;
+            }
+
+            reinoData.infeccao = Math.max(0, reinoData.infeccao - valor);
+            
+            reinoData.atividades.unshift({
+                tipo: 'general',
+                descricao: `Infecção reduzida em ${valor}%`,
+                data: new Date().toLocaleDateString('pt-BR')
+            });
+
+            if (!reinoData.historico) reinoData.historico = [];
+            reinoData.historico.push(reinoData.infeccao);
+
+            salvarEAtualizar();
+        }
+
+        // Render atividades
+        function renderAtividades() {
+            const container = document.getElementById('atividades-list');
+            
+            if (!reinoData.atividades || reinoData.atividades.length === 0) {
+                container.innerHTML = '<div class="no-activities">Nenhuma atividade registrada ainda.</div>';
+                return;
+            }
+
+            container.innerHTML = reinoData.atividades.map((ativ, index) => `
+                <div class="activity-item">
+                    <div>
+                        <h4>${ativ.descricao}</h4>
+                        <p>${ativ.data}</p>
+                    </div>
+                    <button onclick="deletarAtividade(${index})">Deletar</button>
+                </div>
+            `).join('');
+        }
+
+        // Deletar atividade
+        function deletarAtividade(index) {
+            reinoData.atividades.splice(index, 1);
+            salvarEAtualizar();
+        }
+
+        // Render gráfico
+        function renderGrafico() {
+            const ctx = document.getElementById('infectacaoHistorico').getContext('2d');
+            
+            if (window.graficoInstance) {
+                window.graficoInstance.destroy();
+            }
+
+            const historico = reinoData.historico || [reinoData.infeccaoBase];
+            const labels = Array.from({length: historico.length}, (_, i) => i === 0 ? 'Inicial' : `Etapa ${i}`);
+
+            window.graficoInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Nível de Infecção',
+                        data: historico,
+                        borderColor: '#d7b221',
+                        backgroundColor: 'rgba(215, 178, 33, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        pointBackgroundColor: '#d7b221',
+                        pointBorderColor: '#d7b221',
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#d7b221' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            max: 100,
+                            ticks: { color: '#a0a0a0' },
+                            grid: { color: '#333' }
+                        },
+                        x: {
+                            ticks: { color: '#a0a0a0' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Salvar e atualizar
+        function salvarEAtualizar() {
+            const todosReinos = JSON.parse(localStorage.getItem('hallownest_reinos')) || reinos.map(reino => ({
+                ...reino,
+                infeccao: reino.infeccaoBase,
+                chefesDefeitos: 0,
+                loreaExplored: false,
+                atividades: [],
+                historico: [reino.infeccaoBase]
+            }));
+
+            const index = todosReinos.findIndex(r => r.id === reinoAtual.id);
+            if (index !== -1) {
+                todosReinos[index] = reinoData;
+            }
+
+            localStorage.setItem('hallownest_reinos', JSON.stringify(todosReinos));
+            renderizar();
+        }
+
+        // Inicializar
+        carregarReino();
+    </script>
+</body>
+
+</html>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 0;
+            color: #e0e0e0;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 60%, #000000 100%);
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 36px 20px 60px;
+            padding-top: 120px;
+        }
+
+        .topo {
+            margin-bottom: 34px;
+            background: linear-gradient(270deg, #3a3a3a, #4a4a4a, #2a2a2a);
+            padding: 24px;
+            border-radius: 18px;
+            border: 1px solid #d7b221;
+            box-shadow: 0 4px 20px rgba(215, 178, 33, 0.2);
+            animation: slideIn 0.6s ease;
+        }
+
+        .topo h1 {
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            color: #d7b221;
+        }
+
+        .topo p {
+            font-size: 15px;
+            color: #a0a0a0;
+            margin-top: 8px;
+            max-width: 700px;
+        }
+
+        /* CARDS */
+        .cards {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .card-info {
+            flex: 1;
+            min-width: 220px;
+            padding: 24px;
+            border-radius: 24px;
+            background-color: #1a1a1a;
+            border: 1px solid #d7b221;
+            box-shadow: 0 10px 30px rgba(215, 178, 33, 0.1);
+            transition: 0.3s ease;
+            animation: slideIn 0.6s ease;
+        }
+
+        .card-info:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(215, 178, 33, 0.3);
+            border-color: #f0d76d;
+        }
+
+        .card-info h3 {
+            font-size: 13px;
+            color: #d7b221;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .card-info p {
+            font-size: 30px;
+            font-weight: 700;
+            color: #d7b221;
+        }
+
+        /* FORM */
+        .form-section {
+            background: linear-gradient(270deg, #2a2a2a, #3a3a3a);
+            padding: 28px;
+            border-radius: 18px;
+            border: 1px solid #d7b221;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(215, 178, 33, 0.2);
+            animation: slideIn 0.7s ease;
+        }
+
+        .form-section h2 {
+            font-size: 22px;
+            color: #d7b221;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background-color: #0a0a0a;
+            border: 1px solid #d7b221;
+            color: #e0e0e0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #666;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(215, 178, 33, 0.7);
+            border-color: #f0d76d;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-group select {
+            min-width: 150px;
+        }
+
+        .form-group textarea {
+            flex-basis: 100%;
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .btn-adicionar {
+            background-color: #d7b221;
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-adicionar:hover {
+            background-color: #f0d76d;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(215, 178, 33, 0.4);
+        }
+
+        .btn-limpar {
+            background-color: #d7b221;
+            color: #0a0a0a;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s ease;
+        }
+
+        .btn-limpar:hover {
+            background-color: #e6c441;
+            transform: scale(1.05);
+        }
+
+        /* GRAFICOS */
+        .graficos {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .grafico-card {
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            min-width: 320px;
+            padding: 24px;
+            border-radius: 28px;
+            background-color: #1a1a1a;
+            border: 1px solid #d7b221;
+            box-shadow: 0 10px 30px rgba(215, 178, 33, 0.1);
+            transition: 0.3s ease;
+            animation: slideIn 0.8s ease;
+        }
+
+        .grafico-card.small {
+            min-width: 280px;
+            height: 300px;
+        }
+
+        .grafico-card.large {
+            min-width: 400px;
+            min-height: 350px;
+        }
+
+        .grafico-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(215, 178, 33, 0.3);
+        }
+
+        .grafico-card h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #d7b221;
+        }
+
+        .grafico-card span {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #a0a0a0;
+        }
+
+        canvas {
+            display: block;
+            max-height: 250px;
+        }
+
+        /* LISTA DE REGISTROS */
+        .records-section {
+            background-color: #1a1a1a;
+            padding: 24px;
+            border-radius: 18px;
+            border: 1px solid #d7b221;
+            box-shadow: 0 10px 30px rgba(215, 178, 33, 0.1);
+            margin-bottom: 28px;
+            animation: slideIn 0.9s ease;
+        }
+
+        .records-section h2 {
+            font-size: 22px;
+            color: #d7b221;
+            margin-bottom: 20px;
+        }
+
+        .record-item {
+            background-color: #2a2a2a;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #d7b221;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: 0.3s ease;
+        }
+
+        .record-item:hover {
+            background-color: #313131;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(215, 178, 33, 0.2);
+        }
+
+        .record-content h3 {
+            color: #d7b221;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .record-content p {
+            color: #a0a0a0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .record-content .record-date {
+            color: #666;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .record-item .btn-limpar {
+            padding: 6px 12px;
+            height: fit-content;
+        }
+
+        .no-records {
+            color: #666;
+            text-align: center;
+            padding: 40px 20px;
+            font-style: italic;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .container {
+                padding-top: 120px;
+            }
+
+            .topo h1 {
+                font-size: 26px;
+            }
+
+            .card-info p {
+                font-size: 24px;
+            }
+
+            .form-group {
+                flex-direction: column;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+            }
+
+            .grafico-card.large {
+                min-width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="header">
+            <div class="logo">
+                <img onclick="window.location.href='index.html'" src="./images/ChatGPT Image 22 de abr. de 2026, 13_35_52.png">
+            </div>
+
+            <div class="botoes dashcal">
+                <button class="nav_botao" onclick="window.location.href='calculadora.html'">Calculadora</button>
+                <div class="botao-inicial">
+                    <img src="./images/home.png" class="homeicon" alt="">
+                    <button class="nav_botao inicial" onclick="window.location.href='index.html'">Página inicial</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="topo">
+            <h1>Meu Progresso em Hallownest</h1>
+            <p>Acompanhe sua jornada pelo reino caído. Registre seus progressos, personagens estudados e horas dedicadas à exploração da lore.</p>
+        </div>
+
+        <div class="cards">
+            <div class="card-info">
+                <h3>Entradas Registradas</h3>
+                <p id="totalEntradas">0</p>
+            </div>
+
+            <div class="card-info">
+                <h3>Personagens Explorados</h3>
+                <p id="totalPersonagens">0</p>
+            </div>
+
+            <div class="card-info">
+                <h3>Horas Estudadas</h3>
+                <p id="totalHoras">0h</p>
+            </div>
+
+            <div class="card-info">
+                <h3>Saúde do Knight</h3>
+                <p id="saudeKnight">100%</p>
+            </div>
+        </div>
+
+        <!-- FORMULÁRIO PARA ADICIONAR REGISTROS -->
+        <div class="form-section">
+            <h2>📝 Registrar Progresso</h2>
+            <div class="form-group">
+                <input type="text" id="inputTitulo" placeholder="Título (ex: Enfrentei o Pale King...)" required>
+                <select id="inputTipo">
+                    <option value="personagem">Personagem</option>
+                    <option value="evento">Evento</option>
+                    <option value="descoberta">Descoberta</option>
+                    <option value="lore">Lore</option>
+                </select>
+                <input type="number" id="inputHoras" placeholder="Horas estudadas" min="0" step="0.5">
+                <button class="btn-adicionar" onclick="adicionarRegistro()">Adicionar</button>
+            </div>
+            <div class="form-group">
+                <textarea id="inputNota" placeholder="Anotações detalhadas (opcional)..."></textarea>
+            </div>
+        </div>
+
+        <!-- GRÁFICOS -->
+        <div class="graficos">
+            <div class="grafico-card large">
+                <h2>Progressão por Tipo</h2>
+                <span>Distribuição dos registros por categoria.</span>
+                <canvas id="graficoTipo"></canvas>
+            </div>
+
+            <div class="grafico-card small">
+                <h2>Horas Totais</h2>
+                <span>Dedicação ao estudo da lore.</span>
+                <div style="padding: 40px 20px; text-align: center;">
+                    <p style="font-size: 48px; font-weight: 700; color: #d7b221;" id="totalHorasGrafico">0h</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTA DE REGISTROS -->
+        <div class="records-section">
+            <h2>📖 Histórico de Progressos</h2>
+            <div id="registrosContainer">
+                <div class="no-records">Nenhum registro ainda. Comece sua jornada adicionando seus progressos!</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Função para carregar dados do localStorage
+        function carregarDados() {
+            const dados = localStorage.getItem('hallownest_progresso');
+            return dados ? JSON.parse(dados) : [];
+        }
+
+        // Função para salvar dados no localStorage
+        function salvarDados(dados) {
+            localStorage.setItem('hallownest_progresso', JSON.stringify(dados));
+            atualizarDashboard();
+        }
+
+        // Função para adicionar novo registro
+        function adicionarRegistro() {
+            const titulo = document.getElementById('inputTitulo').value.trim();
+            const tipo = document.getElementById('inputTipo').value;
+            const horas = parseFloat(document.getElementById('inputHoras').value) || 0;
+            const nota = document.getElementById('inputNota').value.trim();
+
+            if (!titulo) {
+                alert('Por favor, preencha o título do registro!');
+                return;
+            }
+
+            const novoRegistro = {
+                id: Date.now(),
+                titulo: titulo,
+                tipo: tipo,
+                horas: horas,
+                nota: nota,
+                data: new Date().toLocaleDateString('pt-BR')
+            };
+
+            const dados = carregarDados();
+            dados.push(novoRegistro);
+            salvarDados(dados);
+
+            // Limpar formulário
+            document.getElementById('inputTitulo').value = '';
+            document.getElementById('inputTipo').value = 'personagem';
+            document.getElementById('inputHoras').value = '';
+            document.getElementById('inputNota').value = '';
+        }
+
+        // Função para deletar registro
+        function deletarRegistro(id) {
+            if (confirm('Tem certeza que deseja deletar este registro?')) {
+                let dados = carregarDados();
+                dados = dados.filter(item => item.id !== id);
+                salvarDados(dados);
+            }
+        }
+
+        // Função para atualizar todos os elementos da dashboard
+        function atualizarDashboard() {
+            const dados = carregarDados();
+
+            // Atualizar cards
+            document.getElementById('totalEntradas').textContent = dados.length;
+
+            const personagensUnicas = new Set(dados
+                .filter(d => d.tipo === 'personagem')
+                .map(d => d.titulo)).size;
+            document.getElementById('totalPersonagens').textContent = personagensUnicas;
+
+            const totalHoras = dados.reduce((sum, d) => sum + d.horas, 0);
+            document.getElementById('totalHoras').textContent = totalHoras.toFixed(1) + 'h';
+            document.getElementById('totalHorasGrafico').textContent = totalHoras.toFixed(1) + 'h';
+
+            // Saúde do Knight (baseada em horas estudadas)
+            const saudeKnight = Math.min(100, 50 + (totalHoras * 5));
+            document.getElementById('saudeKnight').textContent = Math.round(saudeKnight) + '%';
+
+            // Atualizar gráfico de tipos
+            atualizarGraficoTipo(dados);
+
+            // Atualizar lista de registros
+            atualizarListaRegistros(dados);
+        }
+
+        // Função para atualizar gráfico de tipos
+        function atualizarGraficoTipo(dados) {
+            const tipos = { personagem: 0, evento: 0, descoberta: 0, lore: 0 };
+            
+            dados.forEach(d => {
+                if (tipos.hasOwnProperty(d.tipo)) {
+                    tipos[d.tipo]++;
+                }
+            });
+
+            const ctxTipo = document.getElementById('graficoTipo').getContext('2d');
+            
+            // Destruir gráfico anterior se existir
+            if (window.graficoTipoInstance) {
+                window.graficoTipoInstance.destroy();
+            }
+
+            window.graficoTipoInstance = new Chart(ctxTipo, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Personagens', 'Eventos', 'Descobertas', 'Lore'],
+                    datasets: [{
+                        data: [tipos.personagem, tipos.evento, tipos.descoberta, tipos.lore],
+                        backgroundColor: ['#d7b221', '#f39c12', '#e74c3c', '#9b59b6'],
+                        borderColor: '#1a1a1a',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#d7b221',
+                                font: { size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Função para atualizar lista de registros
+        function atualizarListaRegistros(dados) {
+            const container = document.getElementById('registrosContainer');
+
+            if (dados.length === 0) {
+                container.innerHTML = '<div class="no-records">Nenhum registro ainda. Comece sua jornada adicionando seus progressos!</div>';
+                return;
+            }
+
+            // Ordenar por data mais recente
+            const dadosOrdenados = [...dados].reverse();
+
+            container.innerHTML = dadosOrdenados.map(registro => `
+                <div class="record-item">
+                    <div class="record-content">
+                        <h3>${registro.titulo}</h3>
+                        <p><strong>Tipo:</strong> ${registro.tipo} | <strong>Horas:</strong> ${registro.horas.toFixed(1)}h</p>
+                        ${registro.nota ? `<p><strong>Anotação:</strong> ${registro.nota}</p>` : ''}
+                        <div class="record-date">${registro.data}</div>
+                    </div>
+                    <button class="btn-limpar" onclick="deletarRegistro(${registro.id})">Deletar</button>
+                </div>
+            `).join('');
+        }
+
+        // Carregar dados ao iniciar a página
+        atualizarDashboard();
+
+        // Permitir Enter para adicionar registro
+        document.getElementById('inputTitulo').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') adicionarRegistro();
+        });
+    </script>
+
+</body>
+
+</html>
+
+
